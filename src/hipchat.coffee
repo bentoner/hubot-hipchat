@@ -6,8 +6,9 @@ Wobot           = require('wobot').Bot
 
 class HipChat extends Adapter
   send: (user, strings...) ->
+    target_jid = if "room" of user then user.room else user.reply_to
     for str in strings
-      @bot.message user.reply_to, str
+      @bot.message target_jid, str
 
   reply: (user, strings...) ->
     for str in strings
